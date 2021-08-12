@@ -6,8 +6,13 @@ from sqlalchemy.orm import sessionmaker
 from models import Base, Bug
 
 
-connection_string = 'sqlite:///'
+# db_name = 'alembic_tour_de_force.db'
+# if os.path.exists(db_name):
+#     os.remove(db_name)
+# connection_string = 'sqlite:///' + db_name
 
+connection_string = os.environ['SQLALCHEMY_DATABASE_URI']
+print(connection_string)
 engine = create_engine(connection_string)
 Session = sessionmaker()
 Session.configure(bind=engine)
