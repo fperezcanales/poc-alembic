@@ -4,22 +4,17 @@ from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
-class RootCause(Base):  
-    __tablename__ = 'root_cause'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
+# class RootCause(Base):  
+#     __tablename__ = 'root_cause'
+#     id = Column(Integer, primary_key=True)
+#     name = Column(String)
 
 class Bug(Base):
     __tablename__ = 'bug'
-    id = Column(Integer, primary_key=True)
-    root_cause_id = Column(ForeignKey('root_cause.id'),
-                           nullable=False,
-                           index=True)
-    bug_tracker_url = Column(String, unique=True)
-    who = Column(String)
-    when = Column(DateTime, default=func.now())
+    __table_args__ = {'schema': 'poc'}
 
-    root_cause = relationship(RootCause)
+    nbr = Column(Integer, primary_key=True)
+    description = Column(String)
 
-    def __repr__(self):
-        return 'id: {}, root cause: {}'.format(self.id, self.root_cause)
+    # def __repr__(self):
+    #     return 'id: {}, root cause: {}'.format(self.id, self.root_cause)

@@ -16,16 +16,19 @@ fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from models import Bug
-target_metadata = Bug.Base.metadata
 
-#target_metadata = None
+# from models import Bug
+# target_metadata = Bug.Base.metadata
+
+target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-
+connection_string = os.environ['SQLALCHEMY_DATABASE_URI']
+print(connection_string)
+config.set_main_option('sqlalchemy.url', connection_string)
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
