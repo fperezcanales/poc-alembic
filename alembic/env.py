@@ -18,9 +18,16 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 
 # from models import Bug
-# target_metadata = Bug.Base.metadata
+from model.models import Base
+from model import attribute
+from model import attribute_detail
+from model import category
+from model import category_attribute
+from model import department
+from model import product
+target_metadata = Base.metadata
 
-target_metadata = None
+# target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -49,24 +56,15 @@ def run_migrations_offline():
     with context.begin_transaction():
         context.run_migrations()
 
-
 def run_migrations_online():
-    """Run migrations in 'online' mode.
+    engine = engine_from_config(
+                config.get_section(config.config_ini_section), prefix='sqlalchemy.')
 
-    In this scenario we need to create an Engine
-    and associate a connection with the context.
-
-    """
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
-        prefix='sqlalchemy.',
-        poolclass=pool.NullPool)
-
-    with connectable.connect() as connection:
+    with engine.connect() as connection:
         context.configure(
-            connection=connection,
-            target_metadata=target_metadata
-        )
+                    connection=connection,
+                    target_metadata=target_metadata
+                    )
 
         with context.begin_transaction():
             context.run_migrations()
