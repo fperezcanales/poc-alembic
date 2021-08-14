@@ -18,13 +18,9 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 
 # from models import Bug
-from model.models import Base
-from model import attribute
-from model import attribute_detail
-from model import category
-from model import category_attribute
-from model import department
-from model import product
+# from model.models import Base
+from sql_app.models import Base
+
 target_metadata = Base.metadata
 
 # target_metadata = None
